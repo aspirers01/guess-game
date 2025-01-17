@@ -7,23 +7,33 @@ import GameScreen from './screens/GameScreen';
 import GameOver from './screens/GameOver';
 export default function App() { 
    const [userNumber,SetuserNumber]= useState();  
-   const [isgameOver, setGameOver] = useState(false);
+   const [isgameOver, setGameOver] = useState(false); 
+   const [roundsNumber, setRoundsNumber] = useState(0);
   
   function startGameHandler(selectedNumber) {
     SetuserNumber(selectedNumber);  
     setGameOver(false);
-  }  
+  }   
+  function gameRoundHandler(numOfRounds){
+    setRoundsNumber(numOfRounds);
+  }
   function gameOverHandler(){
     setGameOver(true);
+   } 
+   function restartGame(){ 
+     SetuserNumber(null);
+      setRoundsNumber(0);
+    setGameOver(false);
    }
-  let content = < StartGameScreen onPicknumber={startGameHandler} />;
+  let content = < StartGameScreen onPicknumber={startGameHandler}  />;
   
   if (userNumber) {
 
-    content = <GameScreen userChoice={userNumber} onGameOver={gameOverHandler} />;
+    content = <GameScreen userChoice={userNumber} onGameOver={gameOverHandler}  gameRoundHandler={gameRoundHandler} />;
   } 
-  if(isgameOver){
-    content = < GameOver currentGuess={userNumber} />;
+  if(isgameOver && userNumber){
+    content = < GameOver currentGuess={userNumber} onrestart={restartGame} roundsNumber=
+    {roundsNumber} />;
 
   }
    

@@ -1,6 +1,7 @@
   import{View, Text, StyleSheet} from 'react-native'; 
     import Title from "../components/ui/Title";
     import NumberContainer from "../components/game/NumberContainer";
+    import PrimaryButton from "../components/ui/PrimaryButton";
 
  function GameOver(params) {
      return (
@@ -8,12 +9,13 @@
              <Title prams={"The Game is Over"} ></Title>
              <NumberContainer text={params.currentGuess}></NumberContainer>
           <View>
-                  {/* <Text>Number of Rounds: {props.roundsNumber}</Text>  
-                  <Text>Number was: {props.userNumber}</Text>   */}
+                  <Text>Number of Rounds: {params.roundsNumber}</Text>  
+                  <Text>Number was: {params.currentGuess}</Text>  
           </View> 
-          <View>
-             {/* log Rounds  */}
-          </View>
+          <View > 
+             
+          </View> 
+           < PrimaryButton text="New Game" onPress={params.onrestart}/>
          </View> 
      );
  } 

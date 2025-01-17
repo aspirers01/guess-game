@@ -13,13 +13,23 @@ import PrimaryButton from "../components/ui/PrimaryButton";
          }
  }
    let maxboundary = 100;
-    let minboundary = 1;
+    let minboundary = 1; 
+    let numOfRounds = 1;
 function GameScreen(params) {  
 
     const initialGuess= generateRandomBetween(1,100,params.userChoice);
-    const [currentGuess,setCurrentGuess]= useState(initialGuess);  
+    const [currentGuess,setCurrentGuess]= useState(initialGuess);    
+    const [guessrounds, setguessRounds] = useState(initialGuess);
+     function roundHanderl(){ 
+        params.gameRoundHandler(numOfRounds);
+     }
+   
     useEffect(()=>{ 
         if(currentGuess === params.userChoice){
+            minboundary = 1;
+            maxboundary = 100; 
+            roundHanderl();
+            numOfRounds=1;
             params.onGameOver();
         }
     },[currentGuess,params.userChoice,params.onGameOver]);
@@ -35,7 +45,9 @@ function GameScreen(params) {
      }else{
         minboundary = currentGuess+1;
      }
-     const newRandnumber= generateRandomBetween(minboundary,maxboundary,currentGuess); 
+     const newRandnumber= generateRandomBetween(minboundary,maxboundary,currentGuess);  
+     numOfRounds = numOfRounds + 1; 
+        // setguessRounds((prevrounds=>[newRandnumber,...prevrounds]));
         setCurrentGuess(newRandnumber);
 
 }
